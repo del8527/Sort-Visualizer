@@ -1,10 +1,12 @@
 import React from 'react';
 import './SortingVisualizer.css';
-import * as sortingAlgos from '../sortingAlgos/sortingAlgos.js';
+import {getMergeSortAnimations} from '../sortingAlgos/sortingAlgos.js';
 
-const ANIMATION_SPEED_MS = 3; // speed of animation
-const NUMBER_OF_ARRAY_BARS = 310; // how many values in array
-
+const ANIMATION_SPEED_MS = 0.5; // speed of animation
+const NUMBER_OF_ARRAY_BARS = 1000; // how many values in array
+const PRIMARY_COLOUR = '#956fd6'; // main col
+const SECONDARY_COLOUR = 'red'; // when being compared
+const HEIGHT_OF_BARS = 666;
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -21,23 +23,23 @@ export default class SortingVisualizer extends React.Component {
 
     resetArray() {
         const array = [];
-        for (let i = 0; i < 230; ++i) {
-            array.push(randomIntFromInterval(5, 666)); // can't really see if value is 1
+        for (let i = 0; i < NUMBER_OF_ARRAY_BARS; ++i) {
+            array.push(randomIntFromInterval(5, HEIGHT_OF_BARS)); // can't really see if value is 1
         }
         this.setState({ array });
     }
 
     mergeSort() {
-        const animations = sortingAlgos.mergeSort(this.state.array);
+        const animations = getMergeSortAnimations(this.state.array);
         for (let i = 0; i < animations.length; ++i) {
             const arrayBars = document.getElementsByClassName('array-bar');
             const isColorChange = i % 3 !== 2; // we compare every 2 vals
 
             if (isColorChange) {
-                const [barOneIdx, barTwoIdx] = animation[i];
+                const [barOneIdx, barTwoIdx] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 === 0 ? 'red' : 'palegreen';
+                const color = i % 3 === 0 ? SECONDARY_COLOUR : PRIMARY_COLOUR;
 
                 setTimeout(() => {
                     barOneStyle.backgroundColor = color;
@@ -65,13 +67,16 @@ export default class SortingVisualizer extends React.Component {
 
     render() {
         const { array } = this.state;
+
         return (
             <div className="array-container">
                 {array.map((value, idx) => (
                     <div
                         className="array-bar"
                         key={idx}
-                        style={{ height: `${value}px` }}></div>
+                        style={{
+                            backgroundColor: calcColor(value),
+                            height: `${value}px` }}></div>
                 ))}
                 <button onClick={() => this.resetArray()}>Create New Array</button>
                 <button onClick={() => this.mergeSort()}>Merge Sort</button>
@@ -84,6 +89,12 @@ export default class SortingVisualizer extends React.Component {
 }
 
 
+function calcColor(val) {
+    var minHue = 240, maxHue=0;
+    var curPercent = 1 - (val - 5) / (HEIGHT_OF_BARS - 5);
+    var colString = "hsl(" + ((curPercent * (maxHue-minHue) ) + minHue) + ",100%,50%)";
+    return colString;
+}
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);

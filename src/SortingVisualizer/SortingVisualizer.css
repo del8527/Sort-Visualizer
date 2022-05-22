@@ -5,8 +5,8 @@
 
 
 .array-bar {
-    width: 2px;
-    background-color: palegreen;
+    width: 1px;
+    background-color: #956fd6;
     display: inline-block;
-    margin: 0 2px;
+    margin: 0 0px;
 }
