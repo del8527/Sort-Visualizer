@@ -1,7 +1,6 @@
 import React from 'react';
 import './SortingVisualizer.scss';
 import { getMergeSortAnimations } from '../sortingAlgos/sortingAlgos.js';
-import Dropdown from '../Dropdown/Dropdown.jsx';
 
 
 const ANIMATION_SPEED_MS = 0.05; // speed of animation
@@ -90,13 +89,12 @@ export default class SortingVisualizer extends React.Component {
 
         return (
             <div>
-                <div className="TopBar">
-                    <span className="TopBar__Title">Sort Visualizer</span>
+                <span className="TopBar">Sort Visualizer</span>
                     <nav>
                         <ul>
-                            <li><button class="TopBut" onClick={() => this.resetArray()}>Randomize</button></li>
+                            <li class="ignore"><button class="TopBut" onClick={() => this.resetArray()}>Randomize</button></li>
                             <li>
-                                Sorting Algorithms
+                                <span className="TopBut">Sorting Algorithms</span>
                                 <ul>
                                     <li> <button class="TopBut" onClick={() => this.mergeSort()}>Merge Sort</button> </li>
                                     <li> <button class="TopBut" onClick={() => this.quickSort()}>Quick Sort</button> </li>
@@ -106,7 +104,6 @@ export default class SortingVisualizer extends React.Component {
                             </li>
                         </ul>
                     </nav>
-                </div>
                 <div className="array-container">
                     {array.map((value, idx) => (
                         <div
