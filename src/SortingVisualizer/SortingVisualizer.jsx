@@ -1,6 +1,7 @@
 import React from 'react';
-import './SortingVisualizer.css';
+import './SortingVisualizer.scss';
 import { getMergeSortAnimations } from '../sortingAlgos/sortingAlgos.js';
+import Dropdown from '../Dropdown/Dropdown.jsx';
 
 
 const ANIMATION_SPEED_MS = 0.05; // speed of animation
@@ -90,14 +91,22 @@ export default class SortingVisualizer extends React.Component {
         return (
             <div>
                 <div className="TopBar">
-                    <span className = "TopBar__Title">Sort Visualizer</span>
-                    <button class="TopBut" onClick={() => this.resetArray()}>Create New Array</button>
-                    <button class="TopBut" onClick={() => this.mergeSort()}>Merge Sort</button>
-                    <button class="TopBut" onClick={() => this.quickSort()}>Quick Sort</button>
-                    <button class="TopBut" onClick={() => this.heapSort()}>Heap Sort</button>
-                    <button class="TopBut" onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                    <span className="TopBar__Title">Sort Visualizer</span>
+                    <nav>
+                        <ul>
+                            <li><button class="TopBut" onClick={() => this.resetArray()}>Randomize</button></li>
+                            <li>
+                                Sorting Algorithms
+                                <ul>
+                                    <li> <button class="TopBut" onClick={() => this.mergeSort()}>Merge Sort</button> </li>
+                                    <li> <button class="TopBut" onClick={() => this.quickSort()}>Quick Sort</button> </li>
+                                    <li> <button class="TopBut" onClick={() => this.heapSort()}>Heap Sort</button> </li>
+                                    <li> <button class="TopBut" onClick={() => this.bubbleSort()}>Bubble Sort</button> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-
                 <div className="array-container">
                     {array.map((value, idx) => (
                         <div
