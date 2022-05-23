@@ -2,8 +2,8 @@ import React from 'react';
 import './SortingVisualizer.css';
 import {getMergeSortAnimations} from '../sortingAlgos/sortingAlgos.js';
 
-const ANIMATION_SPEED_MS = 0.5; // speed of animation
-const NUMBER_OF_ARRAY_BARS = 1000; // how many values in array
+const ANIMATION_SPEED_MS = 0.01; // speed of animation
+const NUMBER_OF_ARRAY_BARS = 6000; // how many values in array
 const PRIMARY_COLOUR = '#956fd6'; // main col
 const SECONDARY_COLOUR = 'red'; // when being compared
 const HEIGHT_OF_BARS = 666;
@@ -31,15 +31,19 @@ export default class SortingVisualizer extends React.Component {
 
     mergeSort() {
         const animations = getMergeSortAnimations(this.state.array);
+        let iGlobal = 0;
         for (let i = 0; i < animations.length; ++i) {
             const arrayBars = document.getElementsByClassName('array-bar');
             const isColorChange = i % 3 !== 2; // we compare every 2 vals
+            const value = animations[i][0];
+            // console.log(value);
+            // console.log(calcColor(value));
 
             if (isColorChange) {
                 const [barOneIdx, barTwoIdx] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 === 0 ? SECONDARY_COLOUR : PRIMARY_COLOUR;
+                const color = i % 3 === 0 ? SECONDARY_COLOUR : calcColor(value);
 
                 setTimeout(() => {
                     barOneStyle.backgroundColor = color;
@@ -52,6 +56,18 @@ export default class SortingVisualizer extends React.Component {
                     barOneStyle.height = `${newHeight}px`;
                 }, i * ANIMATION_SPEED_MS);
             }
+            iGlobal = i;
+        } // after the whole thing is done
+
+        let len = this.state.array.length
+
+        for (let j = 0; j < len; ++j) {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const barOneStyle = arrayBars[j].style;
+            const color = calcColor(this.state.array[j])
+            setTimeout(() => {
+                barOneStyle.backgroundColor = color;
+            }, (iGlobal + j + 200) * ANIMATION_SPEED_MS)
         }
     }
     
@@ -90,9 +106,9 @@ export default class SortingVisualizer extends React.Component {
 
 
 function calcColor(val) {
-    var minHue = 240, maxHue=0;
+    var minHue = 262.1, maxHue=0; // #956fd6 moment
     var curPercent = 1 - (val - 5) / (HEIGHT_OF_BARS - 5);
-    var colString = "hsl(" + ((curPercent * (maxHue-minHue) ) + minHue) + ",100%,50%)";
+    var colString = "hsl(" + ((curPercent * (maxHue-minHue) ) + minHue) + `, 55.7%,63.7%)`;
     return colString;
 }
 
