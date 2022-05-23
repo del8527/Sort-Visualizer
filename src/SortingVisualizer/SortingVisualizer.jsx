@@ -1,12 +1,15 @@
 import React from 'react';
 import './SortingVisualizer.css';
-import {getMergeSortAnimations} from '../sortingAlgos/sortingAlgos.js';
+import { getMergeSortAnimations } from '../sortingAlgos/sortingAlgos.js';
 
-const ANIMATION_SPEED_MS = 0.01; // speed of animation
-const NUMBER_OF_ARRAY_BARS = 6000; // how many values in array
+
+const ANIMATION_SPEED_MS = 0.05; // speed of animation
+const NUMBER_OF_ARRAY_BARS = 3500; // how many values in array
 const PRIMARY_COLOUR = '#956fd6'; // main col
 const SECONDARY_COLOUR = 'red'; // when being compared
-const HEIGHT_OF_BARS = 666;
+const HEIGHT_OF_BARS = Math.floor(window.innerHeight * .85);
+
+console.log(NUMBER_OF_ARRAY_BARS);
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -70,12 +73,12 @@ export default class SortingVisualizer extends React.Component {
             }, (iGlobal + j + 200) * ANIMATION_SPEED_MS)
         }
     }
-    
-    quickSort() {}
-    
-    heapSort() {}
 
-    bubbleSort() {}
+    quickSort() { }
+
+    heapSort() { }
+
+    bubbleSort() { }
 
 
     // may need to add a function to test the sorting algorithms
@@ -85,30 +88,40 @@ export default class SortingVisualizer extends React.Component {
         const { array } = this.state;
 
         return (
-            <div className="array-container">
-                {array.map((value, idx) => (
-                    <div
-                        className="array-bar"
-                        key={idx}
-                        style={{
-                            backgroundColor: calcColor(value),
-                            height: `${value}px` }}></div>
-                ))}
-                <button onClick={() => this.resetArray()}>Create New Array</button>
-                <button onClick={() => this.mergeSort()}>Merge Sort</button>
-                <button onClick={() => this.quickSort()}>Quick Sort</button>
-                <button onClick={() => this.heapSort()}>Heap Sort</button>
-                <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+            <div>
+                <div className="TopBar">
+                    <span className = "TopBar__Title">Sort Visualizer</span>
+                    <button class="TopBut" onClick={() => this.resetArray()}>Create New Array</button>
+                    <button class="TopBut" onClick={() => this.mergeSort()}>Merge Sort</button>
+                    <button class="TopBut" onClick={() => this.quickSort()}>Quick Sort</button>
+                    <button class="TopBut" onClick={() => this.heapSort()}>Heap Sort</button>
+                    <button class="TopBut" onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                </div>
+
+                <div className="array-container">
+                    {array.map((value, idx) => (
+                        <div
+                            className="array-bar"
+                            key={idx}
+                            style={{
+                                backgroundColor: calcColor(value),
+                                height: `${value}px`,
+
+                            }}></div>
+                    ))}
+                </div>
             </div>
+
+
         );
     }
 }
 
 
 function calcColor(val) {
-    var minHue = 262.1, maxHue=0; // #956fd6 moment
+    var minHue = 262.1, maxHue = 0; // #956fd6 moment
     var curPercent = 1 - (val - 5) / (HEIGHT_OF_BARS - 5);
-    var colString = "hsl(" + ((curPercent * (maxHue-minHue) ) + minHue) + `, 55.7%,63.7%)`;
+    var colString = "hsl(" + ((curPercent * (maxHue - minHue)) + minHue) + `, 55.7%,63.7%)`;
     return colString;
 }
 
@@ -119,9 +132,9 @@ function randomIntFromInterval(min, max) {
 function arraysAreEqual(arrayOne, arrayTwo) {
     if (arrayOne.length !== arrayTwo.length) return false;
     for (let i = 0; i < arrayOne.length; i++) {
-      if (arrayOne[i] !== arrayTwo[i]) {
-        return false;
-      }
+        if (arrayOne[i] !== arrayTwo[i]) {
+            return false;
+        }
     }
     return true;
-  }
+}
