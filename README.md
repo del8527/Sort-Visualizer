@@ -1,7 +1,7 @@
 
 # Sort Visualizer
 
-[![del8527 - Visualize-Sorting](https://img.shields.io/static/v1?label=del8527&message=Visualize-Sorting&color=%23956fd6&logo=github)](https://github.com/del8527/Visualize-Sorting "Go to GitHub repo")
+[![del8527 - Sort-Visualizer](https://img.shields.io/static/v1?label=del8527&message=Sort-Visualizer&color=%23956fd6&logo=github)](https://github.com/del8527/Sort-Visualizer "Go to GitHub repo")
 
 ### Made with:
 [![Javascript](https://img.shields.io/badge/Javascript-956fd6?style=for-the-badge)](https://https://www.javascript.com/)
