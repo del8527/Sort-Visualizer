@@ -1,5 +1,5 @@
 
-# Visualizing Sorting
+# Sort Visualizer
 
 [![del8527 - Visualize-Sorting](https://img.shields.io/static/v1?label=del8527&message=Visualize-Sorting&color=%23956fd6&logo=github)](https://github.com/del8527/Visualize-Sorting "Go to GitHub repo")
 
