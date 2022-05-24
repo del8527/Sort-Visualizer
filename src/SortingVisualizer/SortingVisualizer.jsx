@@ -1,15 +1,15 @@
 import React from 'react';
 import './SortingVisualizer.scss';
-import { getMergeSortAnimations } from '../sortingAlgos/sortingAlgos.js';
+import { getMergeSortAnimations } from '../sortingAlgos/mergeSort.js';
 
 
-const ANIMATION_SPEED_MS = 0.05; // speed of animation
+const ANIMATION_SPEED_MS = 0.1; // speed of animation
 const NUMBER_OF_ARRAY_BARS = 3500; // how many values in array
 const PRIMARY_COLOUR = '#956fd6'; // main col
 const SECONDARY_COLOUR = 'red'; // when being compared
 const HEIGHT_OF_BARS = Math.floor(window.innerHeight * .85);
-
-console.log(NUMBER_OF_ARRAY_BARS);
+const theme = 'rainbow';
+let isRunning = false;
 
 export default class SortingVisualizer extends React.Component {
     constructor(props) {
@@ -32,13 +32,41 @@ export default class SortingVisualizer extends React.Component {
         this.setState({ array });
     }
 
+    black() {
+        const arrayBars = document.getElementsByClassName('array-bar');
+        for (let i = 0; i < NUMBER_OF_ARRAY_BARS; ++i) {
+            setTimeout(() => {
+                arrayBars[i].style.backgroundColor = 'black';
+            }, i * ANIMATION_SPEED_MS);
+        }
+        theme = 'black';
+    }
+
+    rainbow() {
+        const arrayBars = document.getElementsByClassName('array-bar');
+        for (let i = 0; i < NUMBER_OF_ARRAY_BARS; ++i) {
+            let val = parseInt(arrayBars[i].style.height);
+            
+            setTimeout(() => {
+                arrayBars[i].style.backgroundColor = calcColor(val);
+            }, i * ANIMATION_SPEED_MS);
+        }
+        theme = 'rainbow';
+    }
+
     mergeSort() {
         const animations = getMergeSortAnimations(this.state.array);
         let iGlobal = 0;
+        isRunning = true;
+        // this.setState({array: this.state.array, isRunning : true}); // added
         for (let i = 0; i < animations.length; ++i) {
             const arrayBars = document.getElementsByClassName('array-bar');
             const isColorChange = i % 3 !== 2; // we compare every 2 vals
-            const value = animations[i][0];
+            console.log(animations);
+            console.log(arrayBars)
+
+            // const value = parseInt(arrayBars[i].style.height);
+             const value = animations[i][0];
             // console.log(value);
             // console.log(calcColor(value));
 
@@ -72,6 +100,10 @@ export default class SortingVisualizer extends React.Component {
                 barOneStyle.backgroundColor = color;
             }, (iGlobal + j + 200) * ANIMATION_SPEED_MS)
         }
+        setTimeout(() => {
+            isRunning = false;
+            console.log("44444")
+        }, iGlobal * ANIMATION_SPEED_MS)
     }
 
     quickSort() { }
@@ -87,21 +119,45 @@ export default class SortingVisualizer extends React.Component {
     render() {
         const { array } = this.state;
 
+        let cursor = "pointer";
+        let buttonColor = "#3a3a3c";
+
+        if (isRunning === true) {
+            buttonColor = "#956fd6";
+            cursor = "not-allowed";
+        }
+        console.log(isRunning);
+
         return (
             <div>
                 <div className="TopBar">
                     <span className="TopBar__Title">Sort Visualizer</span>
                     <nav>
                         <ul>
-                            <li><button className="Rando" onClick={() => this.resetArray()}>Randomize</button></li>
+                            <li><button
+                                className="Rando"
+                                style={{ color: buttonColor, cursor: cursor }}
+                                onClick={() => {
+                                    if (isRunning === false) {
+                                        this.resetArray()
+                                    }
+                                }
+                                }
+                            >Randomize</button></li>
                             <li>
                                 <button>Sorting Algorithms</button>
                                 <ul>
                                     <li> <button className="TopBut" onClick={() => this.mergeSort()}>Merge Sort</button> </li>
-                                    <li> <button className="TopBut" onClick={() => this.quickSort()}>Quick Sort</button> </li>
-                                    <li> <button className="TopBut" onClick={() => this.heapSort()}>Heap Sort</button> </li>
-                                    <li> <button className="TopBut" onClick={() => this.bubbleSort()}>Bubble Sort</button> </li>
+                                    <li> <button className="TopBut" onClick={() => this.quickSort()}>Quick Sort (WIP)</button> </li>
+                                    <li> <button className="TopBut" onClick={() => this.heapSort()}>Heap Sort (WIP)</button> </li>
+                                    <li> <button className="TopBut" onClick={() => this.bubbleSort()}>Bubble Sort (WIP)</button> </li>
                                 </ul>
+                            </li>
+                            <li><button>Themes (Coming soon)</button>
+                                {/* <ul>
+                                    <li> <button className="TopBut" id="Black" onClick={() => this.black()}>Black</button></li>
+                                    <li> <button className="TopBut" id="Rainbow" onClick={() => this.rainbow()}>Rainbow</button></li>
+                                </ul> */}
                             </li>
                         </ul>
                     </nav>
