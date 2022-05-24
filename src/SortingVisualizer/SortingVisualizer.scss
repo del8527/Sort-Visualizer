@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Lexend Exa', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 .array-container {
@@ -22,32 +24,51 @@
 }
 
 .TopBar {
-    /* Default Styles */
     display: flex;
-    justify-content: space-between;
+
     background-color: #d5bdff;
-    padding: 15px 10%;
     box-shadow: 5px 10px 18px 0px #888888;
 
-    color: black;
-    font-size: 1.25rem;
-    font-weight: 500;
+    margin-bottom: 20px;
+    
 }
 
 .TopBar__Title {
-    text-align: left;
-    margin: auto;
-    flex-grow: 1;
+    // float: left;
+    // margin: auto;
+    // flex-grow: 1;
+    padding: 20px;
+    
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    text-align: center;
+
+    font-size: 28px;
+    font-weight: 700;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to right, #562cb8, #ee4b2b);
 }
 
-.TopBut {
-    background-color: transparent;
-    border: none;
-    color: black;
-    padding: 0px 5%;
-    text-align: left;
-    display: inline-block;
-    cursor: pointer;
+.TopBut { // for the buttons inside of sorting algorithms
+//     background-color: transparent;
+//     border: none;
+//     color: black;
+//     padding: 0px 5%;
+//     text-align: left;
+//     display: inline-block;
+//     cursor: pointer;
+    color: white;
+    width: 218px;
+    font-weight: 600;
+    text-shadow: -.5px -.5px 0px rgb(33, 0, 124),
+    1px 1px 0px rgb(39, 143, 223),
+    2px 2px 0px rgb(39, 143, 223);
+}
+
+.Rando {
 }
 
 body {
@@ -55,7 +76,7 @@ body {
 }
 
 nav {
-    display: inline-block;
+    // display: inline-block;
     border-radius: 10px;
     animation: slide-in 1s ease-out;
 }
@@ -69,7 +90,7 @@ ul {
     list-style-type: none;
 
     li:not(:last-child) {
-        margin-right: 40px;
+        // margin-right: 40px;
     }
 
     li {
@@ -80,9 +101,19 @@ ul {
         text-decoration: none;
 
         button {
-            color: #2375D8;
+            background-color: transparent;
+            border: none;
+            color: #3a3a3c;
             text-decoration: none;
             transition: color 0.2s;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: 600;
+            padding: 20px 20px;
+            text-align: left;
+            // text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+
+            
         }
 
         ul {
@@ -92,11 +123,11 @@ ul {
             display: block;
             margin: 12px -12px;
             padding: 0;
-            background: rgb(243, 209, 138);
-            border: 2px solid rgb(243, 209, 138);
-            border-right: 2px solid rgb(243, 209, 138);
-            border-bottom: 2px solid rgb(243, 209, 138);
-            border-radius: 5px;
+            background: #d5bdff;
+            border: 2px solid #d5bdff;
+            border-right: 2px solid #F9B4F6;
+            border-bottom: 2px solid #F9B4F6;
+            border-radius: 1px;
             transition: opacity 0.2s, visibility 0.2s;
 
             li {
