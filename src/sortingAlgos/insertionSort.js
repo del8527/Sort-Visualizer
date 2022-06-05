@@ -22,3 +22,6 @@ function insertionSortHelper(
     mergeSortHelper(auxiliaryArray, middleIdx + 1, endIdx, mainArray, animations); // right half
     doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animations);
 }
+
+
+// insert 
